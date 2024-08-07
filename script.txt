@@ -1,0 +1,32 @@
+//#include <Mouse.h>
+
+const int sensor_pin = A0;
+void setup() {
+  Serial.begin(9600);
+  pinMode(sensor_pin, INPUT);
+  
+}
+
+void loop() {
+  float sensor = analogRead(sensor_pin);
+  //Serial.println(sensor);
+  bool ran = false;
+
+  float time = 0;
+  while (sensor < 600) {
+    delay(1);
+    time += 0.001;
+    sensor = analogRead(sensor_pin);
+    ran = true;
+  }
+
+  if (sensor >= 600 && ran==true) {
+    float vel = (0.065)/(time);
+    Serial.print(vel);
+    Serial.println(" m/s");
+    Serial.print(time);
+    Serial.println("s")
+    delay(100);
+  }
+
+}
